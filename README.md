@@ -1,6 +1,6 @@
 #Traffic Airbrake Middleware
 
-Package airbrake implements a Traffic Middleware for [Airbrake](http://airbrake.io).
+Package airbrake implements a [Traffic](https://github.com/pilu/traffic) Middleware for [Airbrake](http://airbrake.io).
 
 This is a Middleware for [Traffic](https://github.com/pilu/traffic).
 It is base on [@tobi](https://github.com/tobi)'s [Airbrake library](https://github.com/tobi/airbrake-go).
