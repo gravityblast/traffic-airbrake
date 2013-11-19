@@ -2,20 +2,19 @@ package airbrake
 
 import (
   "errors"
-  "net/http"
   "github.com/pilu/traffic"
   api "github.com/tobi/airbrake-go"
 )
 
 type AirbrakeMiddleware struct {}
 
-func (middleware *AirbrakeMiddleware) ServeHTTP(w traffic.ResponseWriter, r *http.Request, next traffic.NextMiddlewareFunc) (traffic.ResponseWriter, *http.Request) {
+func (middleware *AirbrakeMiddleware) ServeHTTP(w traffic.ResponseWriter, r *traffic.Request, next traffic.NextMiddlewareFunc) (traffic.ResponseWriter, *traffic.Request) {
   defer func() {
     if rec := recover(); rec != nil {
       if err, ok := rec.(error); ok {
-        api.Error(err, r)
+        api.Error(err, r.Request)
       } else if err, ok := rec.(string); ok {
-        api.Error(errors.New(err), r)
+        api.Error(errors.New(err), r.Request)
       }
       panic(rec)
     }

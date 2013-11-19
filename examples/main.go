@@ -4,12 +4,11 @@ import (
   "os"
   "fmt"
   "time"
-  "net/http"
   "github.com/pilu/traffic"
   "github.com/pilu/traffic-airbrake"
 )
 
-func rootHandler(w traffic.ResponseWriter, r *http.Request) {
+func rootHandler(w traffic.ResponseWriter, r *traffic.Request) {
   err := fmt.Sprintf("Error at %v", time.Now())
   panic(err)
 }
