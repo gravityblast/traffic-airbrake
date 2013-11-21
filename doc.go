@@ -25,7 +25,7 @@ Example:
   func main() {
     traffic.SetVar("env", "production")
     router := traffic.New()
-    router.AddMiddleware(airbrake.New(os.Getenv("AIRBRAKE_API_KEY")))
+    router.Use(airbrake.New(os.Getenv("AIRBRAKE_API_KEY")))
 
     // Routes
     router.Get("/", rootHandler)
