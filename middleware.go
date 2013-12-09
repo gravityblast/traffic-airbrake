@@ -8,7 +8,7 @@ import (
 
 type AirbrakeMiddleware struct {}
 
-func (middleware *AirbrakeMiddleware) ServeHTTP(w traffic.ResponseWriter, r *traffic.Request, next traffic.NextMiddlewareFunc) (traffic.ResponseWriter, *traffic.Request) {
+func (middleware *AirbrakeMiddleware) ServeHTTP(w traffic.ResponseWriter, r *traffic.Request, next traffic.NextMiddlewareFunc) {
   defer func() {
     if rec := recover(); rec != nil {
       if err, ok := rec.(error); ok {
@@ -21,10 +21,8 @@ func (middleware *AirbrakeMiddleware) ServeHTTP(w traffic.ResponseWriter, r *tra
   }()
 
   if nextMiddleware := next(); nextMiddleware != nil {
-    w, r = nextMiddleware.ServeHTTP(w, r, next)
+    nextMiddleware.ServeHTTP(w, r, next)
   }
-
-  return w, r
 }
 
 func New(apiKey string) *AirbrakeMiddleware {
